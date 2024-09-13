@@ -1,11 +1,11 @@
 use lettre::message::{header, Mailbox, Message};
 use lettre::transport::smtp::authentication::Credentials;
-use lettre::{SmtpTransport, Transport};
+use lettre::{AsyncSmtpTransport, AsyncTransport, Tokio1Executor};
 
-pub fn send_email(customer_email: &str, mess: &str) -> Result<String, lettre::transport::smtp::Error> {
-    let sender_email = "customer.query.de@gmail.com"; 
-    let sender_name = "Rudra Patel"; 
-    let recipient_email = "vvaibhavv3434@gmail.com"; 
+pub async fn send_email(customer_email: &str, mess: &str) -> Result<String, lettre::transport::smtp::Error> {
+    let sender_email = "customer.query.de@gmail.com";
+    let sender_name = "Rudra Patel";
+    let recipient_email = "vvaibhavv3434@gmail.com";
     let body = format!("sender_email : {},   message : {}", customer_email, mess);
 
     let email = Message::builder()
@@ -18,14 +18,15 @@ pub fn send_email(customer_email: &str, mess: &str) -> Result<String, lettre::tr
 
     let creds = Credentials::new(sender_email.to_string(), "bkgk gebv napt zvtx".to_string());
 
-    let mailer = SmtpTransport::starttls_relay("smtp.gmail.com")
+    let mailer = AsyncSmtpTransport::<Tokio1Executor>::relay("smtp.gmail.com")
         .unwrap()
         .credentials(creds)
         .build();
 
-    match mailer.send(&email) {
-        Ok(_) => Ok("email is send".to_string()),
+    match mailer.send(email).await {
+        Ok(_) => Ok("Email sent".to_string()),
         Err(e) => Err(e)
     }
+
 }
 

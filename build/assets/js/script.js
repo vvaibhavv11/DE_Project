@@ -22,6 +22,7 @@ const close = document.querySelector('.toast-close');
 const progress = document.querySelector('.progress');
 const text1 = document.querySelector('.text-1');
 const text2 = document.querySelector('.text-2');
+const vid = require("./video.json")
 // const progressBar = document.querySelector(".progress::before");
 // End Toast
 

@@ -13,7 +13,10 @@
   },
   "tauri": {
     "allowlist": {
-      "all": false
+      "all": true,
+      "fs": {
+        "scope": ["$RESOURCE/*"]
+      }
     },
     "bundle": {
       "active": true,
@@ -30,7 +33,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.scantextify.dev",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -39,9 +42,9 @@
         "providerShortName": null,
         "signingIdentity": null
       },
-      "resources": [],
+      "resources": ["../build/assets/video/"],
       "shortDescription": "",
-      "targets": "all",
+      "targets": ["deb", "nsis", "msi", "app", "dmg", "updater"],
       "windows": {
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
