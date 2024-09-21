@@ -1,6 +1,7 @@
 uploads/*
 !uploads/.gitkeep
 .env
+app
 database-docker.env
 src-tauri
 node_modules

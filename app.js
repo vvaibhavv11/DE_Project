@@ -118,7 +118,7 @@ app.post('/upload', (req, res) => {
 	upload(req, res, (err) => {
 		fs.readFile(`./uploads/${req.file.originalname}`, async (err, data) => {
 			if (err) return console.log('This is your error: ', err);
-			text = await getTextFromImage(data);
+			let text = await getTextFromImage(data);
 			text = text.replace(/\n/g, '&#13;&#10;');
 			res.send(text);
 		});
