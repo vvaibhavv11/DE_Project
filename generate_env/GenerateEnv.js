@@ -23,20 +23,20 @@ async function createEnvFiles() {
             mysqlHost = "localhost";
             console.log(`${colors.green}Default host set to 'localhost'.${colors.reset}`);
         }
-        
-        let mysqlPassword = readline.question(`${colors.yellow}Enter your MySQL password: ${colors.reset}`, { hideEchoBack: true, mask: "*"});
+
+        const mysqlPassword = readline.question(`${colors.yellow}Enter your MySQL password: ${colors.reset}`, { hideEchoBack: true, mask: "*"});
         if (!mysqlPassword) {
             console.error(`${colors.red}MySQL password is required.${colors.reset}`);
             return;
         }
-        
+
         let mysqlDatabase = readline.question(`${colors.yellow}Enter the name of your database(default: project): ${colors.reset}`);
         if (!mysqlDatabase) {
             console.log(`${colors.green}No database name provided, using default value 'project'.${colors.reset}`);
             mysqlDatabase = "project";
         }
-        
-        let mysqlUsername = readline.question(`${colors.yellow}Enter your MySQL username (default: root):${colors.reset}`); 
+
+        let mysqlUsername = readline.question(`${colors.yellow}Enter your MySQL username (default: root):${colors.reset}`);
         if (!mysqlUsername) {
             console.log(`${colors.green}No username provided, using default value 'root'.${colors.reset}`);
             mysqlUsername = "root";
