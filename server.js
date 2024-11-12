@@ -11,6 +11,7 @@ const { createWorker } = require('tesseract.js');
 const dbconnect = require(path.join(__dirname, ".", "database", "db.js"));
 const sendEmail = require(path.join(__dirname, ".", "email", "send_email.js"));
 
+app.use("public", express.static(path.join(__dirname, ".", "public")));
 
 (async () => {
 	await dbconnect.create_table();
@@ -45,7 +46,6 @@ async function getTextFromImage(data) {
 
 const upload = multer({ storage: multer.memoryStorage() }).single('xyz');
 
-app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 app.use(
