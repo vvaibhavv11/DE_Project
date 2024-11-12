@@ -136,9 +136,6 @@ app.post('/send-email', async (req, res) => {
 	}
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+app.listen(3000, () => console.log('Server ready on port 3000.'));
 
 module.exports = app;
