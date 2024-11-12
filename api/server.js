@@ -1,14 +1,17 @@
 // APP
 const express = require('express');
+const path = require("path");
 const session = require('express-session');
 const { Pool } = require('pg');
 const connectPgSimple = require('connect-pg-simple')(session);
 const app = express();
 const multer = require('multer');
-const routers = require('./routers/router');
+const routers = require(path.join(__dirname, "..", "routers", "router.js"));
 const { createWorker } = require('tesseract.js');
-const dbconnect = require('./database/db');
-const sendEmail = require('./email/send_email');
+const dbconnect = require(path.join(__dirname, "..", "database", "db.js"));
+const sendEmail = require(path.join(__dirname, "..", "email", "send_email.js"));
+
+app.use(express.static(path.join(__dirname, "..", "public")));
 
 (async () => {
 	await dbconnect.create_table();
@@ -29,8 +32,6 @@ const sessionStore = new connectPgSimple({
     tableName: 'session',
     createTableIfMissing: true
 });
-
-app.use('/public', express.static('./public'));
 
 async function getTextFromImage(data) {
 	const worker = await createWorker('eng', 1, {
