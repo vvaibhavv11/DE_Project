@@ -135,6 +135,4 @@ app.post('/send-email', async (req, res) => {
 	}
 });
 
-const PORT = 3000;
-app.listen(PORT, () => console.log(`Hey I am running on port ${PORT}`));
 module.exports = app;

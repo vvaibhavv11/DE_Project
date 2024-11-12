@@ -9,3 +9,4 @@ pnpm-lock.yaml
 biome.json
 src-tauri
 app
+.vercel
