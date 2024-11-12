@@ -4,7 +4,7 @@
 	"description": "This is our final year Project of our engineering.",
 	"main": "script.js",
 	"scripts": {
-		"dev": "node api/app.js"
+		"dev": "node app.js"
 	},
 	"keywords": [],
 	"author": "",
