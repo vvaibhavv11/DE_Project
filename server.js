@@ -6,12 +6,12 @@ const { Pool } = require('pg');
 const connectPgSimple = require('connect-pg-simple')(session);
 const app = express();
 const multer = require('multer');
-const routers = require(path.join(__dirname, "..", "routers", "router.js"));
+const routers = require(path.join(__dirname, ".", "routers", "router.js"));
 const { createWorker } = require('tesseract.js');
-const dbconnect = require(path.join(__dirname, "..", "database", "db.js"));
-const sendEmail = require(path.join(__dirname, "..", "email", "send_email.js"));
+const dbconnect = require(path.join(__dirname, ".", "database", "db.js"));
+const sendEmail = require(path.join(__dirname, ".", "email", "send_email.js"));
 
-app.use(express.static(path.join(__dirname, "..", "public")));
+app.use(express.static(path.join(__dirname, ".", "public")));
 
 (async () => {
 	await dbconnect.create_table();
