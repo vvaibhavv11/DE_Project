@@ -4,8 +4,7 @@
 	"description": "This is our final year Project of our engineering.",
 	"main": "script.js",
 	"scripts": {
-		"dev": "node app.js",
-		"GenerateEnv": "node ./generate_env/GenerateEnv.js"
+		"dev": "node api/app.js"
 	},
 	"keywords": [],
 	"author": "",

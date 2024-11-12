@@ -5,10 +5,10 @@ const { Pool } = require('pg');
 const connectPgSimple = require('connect-pg-simple')(session);
 const app = express();
 const multer = require('multer');
-const routers = require('./routers/router');
+const routers = require('../routers/router');
 const { createWorker } = require('tesseract.js');
-const dbconnect = require('./database/db');
-const sendEmail = require('./email/send_email');
+const dbconnect = require('../database/db');
+const sendEmail = require('../email/send_email');
 
 (async () => {
 	await dbconnect.create_table();
@@ -135,5 +135,6 @@ app.post('/send-email', async (req, res) => {
 	}
 });
 
-const PORT = 5500;
+const PORT = 3000;
 app.listen(PORT, () => console.log(`Hey I am running on port ${PORT}`));
+module.exports = app;
