@@ -36,6 +36,8 @@ const sessionStore = new connectPgSimple({
 async function getTextFromImage(data) {
 	const worker = await createWorker('eng', 1, {
 		logger: (m) => console.log('PROGRESS: ' + m['progress'] * 100 + '%'),
+        corePath: '/_next/static/tesseract-core-simd.wasm',
+        workerPath: "./node_modules/tesseract.js/dist/worker.min.js"
 	});
 	const {
 		data: { text },
