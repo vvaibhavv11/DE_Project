@@ -8,9 +8,27 @@ router.get('/', (req, res) => {
 	if (req.session.is_auth) {
 		const UserName = req.session.UserName;
 		const email = req.session.email;
-		res.render(path.join(__dirname, "..", "views", "index.ejs"), { userName: UserName, email: email, isAuth: is_auth });
+		res.render(path.join(__dirname, "..", "views", "index.ejs"), {
+            userName: UserName,
+            email: email,
+            isAuth: is_auth,
+            style1: path.join("public", "assets", "index", "css", "style.css"),
+            style2: path.join("public", "assets", "index", "css", "mediaqueries.css"),
+            font1: path.join("public", "assets", "fontawesome", "css", "fontawesome.css"),
+            font2: path.join("public", "assets", "fontawesome", "css", "solid.css"),
+            image: path.join("public", "assets", "images", "noobs.jpeg"),
+            js: path.join("public", "assets", "index", "js", "script.js")
+        });
 	} else {
-		res.render(path.join(__dirname, "..", "views", "index.ejs"), { isAuth: is_auth });
+		res.render(path.join(__dirname, "..", "views", "index.ejs"), {
+            isAuth: is_auth,
+            style1: path.join("public", "assets", "index", "css", "style.css"),
+            style2: path.join("public", "assets", "index", "css", "mediaqueries.css"),
+            font1: path.join("public", "assets", "fontawesome", "css", "fontawesome.css"),
+            font2: path.join("public", "assets", "fontawesome", "css", "solid.css"),
+            image: path.join("public", "assets", "images", "noobs.jpeg"),
+            js: path.join("public", "assets", "index", "js", "script.js")
+        });
 	}
 });
 
