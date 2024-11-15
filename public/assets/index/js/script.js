@@ -88,6 +88,7 @@ function uploadImage() {
 	let imgLink = URL.createObjectURL(inputFile.files[0]);
 	imageView.style.backgroundImage = `url(${imgLink})`;
 	imageView.textContent = '';
+    return imgLink;
 }
 
 dropArea.addEventListener('dragover', function (e) {
@@ -105,17 +106,27 @@ uploadForm.onsubmit = async (e) => {
 	convertLoadAnimate.hidden = false;
 	convertButton.hidden = true;
 	waitMessage.hidden = false;
-	const formData = new FormData(uploadForm);
-	const response = await fetch('/upload', {
-		method: 'POST',
-		body: formData,
-	});
-	const data = await response.text();
+    const imagelink = uploadImage();
+    const worker = await Tesseract.createWorker("eng", 1, {
+        corePath: '/public/assets/index/js/tesseract-core-simd.wasm.js',
+        workerPath: "/public/assets/index/js/worker.min.js"
+    });
+	const {
+		data: { text },
+	} = await worker.recognize(imagelink);
+	await worker.terminate();
+
+	// const formData = new FormData(uploadForm);
+	// const response = await fetch('/upload', {
+	// 	method: 'POST',
+	// 	body: formData,
+	// });
+	// const data = await response.text();
 	convertLoadAnimate.hidden = true;
 	convertButton.hidden = false;
 	waitMessage.hidden = true;
 
-	document.getElementById('textarea-hero').innerHTML = data;
+	document.getElementById('textarea-hero').innerHTML = text;
 };
 
 contactForm.onsubmit = async (e) => {

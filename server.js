@@ -5,9 +5,7 @@ const session = require('express-session');
 const { Pool } = require('pg');
 const connectPgSimple = require('connect-pg-simple')(session);
 const app = express();
-const multer = require('multer');
 const routers = require(path.join(__dirname, ".", "routers", "router.js"));
-const { createWorker } = require('tesseract.js');
 const dbconnect = require(path.join(__dirname, ".", "database", "db.js"));
 const sendEmail = require(path.join(__dirname, ".", "email", "send_email.js"));
 
@@ -32,21 +30,6 @@ const sessionStore = new connectPgSimple({
     tableName: 'session',
     createTableIfMissing: true
 });
-
-async function getTextFromImage(data) {
-	const worker = await createWorker('eng', 1, {
-		logger: (m) => console.log('PROGRESS: ' + m['progress'] * 100 + '%'),
-        corePath: '/_next/static/tesseract-core-simd.wasm',
-        workerPath: "./node_modules/tesseract.js/dist/worker.min.js"
-	});
-	const {
-		data: { text },
-	} = await worker.recognize(data);
-	await worker.terminate();
-	return text;
-}
-
-const upload = multer({ storage: multer.memoryStorage() }).single('xyz');
 
 app.set('view engine', 'ejs');
 
@@ -103,29 +86,6 @@ app.post('/logout', (req, res) => {
 		res.json({ success: false });
 	}
 });
-
-app.post('/upload', (req, res) => {
-    upload(req, res, async (err) => {
-        if (err) {
-            console.error('Upload error:', err);
-            return res.status(500).send('File upload failed.');
-        }
-
-        if (!req.file) {
-            return res.status(400).send('No file uploaded.');
-        }
-
-        try {
-            const imageBuffer = req.file.buffer;
-            let text = await getTextFromImage(imageBuffer);
-            text = text.replace(/\n/g, '&#13;&#10;');
-            res.send(text);
-        } catch (error) {
-            console.error('Processing error:', error);
-            res.status(500).send('Failed to process the image.');
-        }
-    })
-})
 
 app.post('/send-email', async (req, res) => {
 	const message = req.body;
